@@ -1,9 +1,6 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:treinontime/agenda.dart';
-
 import 'model/agenda_dados.dart';
 
 class TelaTreinos extends StatefulWidget {
@@ -54,9 +51,8 @@ class _TelaTreinosState extends State<TelaTreinos> {
               itemBuilder: (context, index){
                 
                 return ListTile(
-
-                  title: Text('Meus Treinos Agendados.', style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic)),
-                  subtitle: Text(agenda[index].agenda, style: TextStyle(fontSize: 18, color: Colors.black, fontStyle: FontStyle.italic)),
+                  title: Text(agenda[index].agenda, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic)),
+                  subtitle: Text(agenda[index].horario, style: TextStyle(fontSize: 20, color: Colors.black, fontStyle: FontStyle.italic)),
                   trailing: IconButton(
                     icon: Icon(Icons.delete),
                     onPressed: (){

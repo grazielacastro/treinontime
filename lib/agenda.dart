@@ -11,6 +11,7 @@ class TelaAgenda extends StatefulWidget {
 class _TelaAgendaState extends State<TelaAgenda> {
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var txtAgenda = TextEditingController();
+  var txtHorario = TextEditingController();
   var db = FirebaseFirestore.instance;
 
   //Lista Dinamica de objetos Agenda
@@ -36,6 +37,7 @@ class _TelaAgendaState extends State<TelaAgenda> {
     await db.collection("agenda").doc(id).get()
     .then((doc){
       txtAgenda.text = doc.data()['agenda'];
+      txtHorario.text = doc.data()['horario'];
     });
   }
 
@@ -43,7 +45,7 @@ class _TelaAgendaState extends State<TelaAgenda> {
   Widget build(BuildContext context) {
     final String id = ModalRoute.of(context).settings.arguments;
     if(id != null){
-      if(txtAgenda.text == ''){
+      if(txtAgenda.text == '' && txtHorario.text ==''){
         getDocumentById(id);
       }
     }
@@ -61,13 +63,15 @@ class _TelaAgendaState extends State<TelaAgenda> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Expanded(
-              child: TextField(
-                controller: txtAgenda,
-                decoration: InputDecoration(labelText: 'Adicionar Dia e Horário do Treino',),
-              ),
+            TextField(
+              controller: txtAgenda,
+              decoration: InputDecoration(labelText: 'Adicionar Dia do Treino',),
             ),
             SizedBox(width: 30),
+            TextField(
+              controller: txtHorario,
+              decoration: InputDecoration(labelText: 'Adicionar Horário do Treino',),
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -80,6 +84,7 @@ class _TelaAgendaState extends State<TelaAgenda> {
                       await db.collection("agenda").add(
                         {
                           "agenda": txtAgenda.text,
+                          "horario": txtHorario.text,
                         }
                       );
                     }else{
@@ -87,6 +92,7 @@ class _TelaAgendaState extends State<TelaAgenda> {
                       await db.collection("agenda").doc(id).update(
                         {
                           "agenda": txtAgenda.text,
+                          "horario": txtHorario.text,
                         }
                       );
                     }
