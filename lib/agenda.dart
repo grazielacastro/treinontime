@@ -1,8 +1,7 @@
+import 'dart:async';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:treinontime/conta.dart';
-import 'package:treinontime/configuracoes.dart';
-import 'package:treinontime/main.dart';
-import 'package:treinontime/sobre.dart';
+import 'package:treinontime/model/agenda_dados.dart';
 
 class TelaAgenda extends StatefulWidget {
   @override
@@ -10,13 +9,45 @@ class TelaAgenda extends StatefulWidget {
 }
 
 class _TelaAgendaState extends State<TelaAgenda> {
-
   var scaffoldKey = GlobalKey<ScaffoldState>();
   var txtAgenda = TextEditingController();
-  var horarios = List<String>();
+  var db = FirebaseFirestore.instance;
+
+  //Lista Dinamica de objetos Agenda
+  List<Agenda> agenda = List();
+
+  //Declaração de um objeto para verifica atualizações no Firestore
+  StreamSubscription<QuerySnapshot> ouvidor;
+
+  @override
+  void initState(){
+    super.initState();
+    //Registrar o ouvidor
+    ouvidor?.cancel();
+    ouvidor = db.collection("agenda").snapshots().listen((res) {
+      setState(() {
+        agenda = res.docs.map((e) => Agenda.fromMap(e.data(), e.id)).toList();        
+      });
+     });
+  }
+
+  //Recuperar um documento a partir do ID
+  void getDocumentById(String id) async{
+    await db.collection("agenda").doc(id).get()
+    .then((doc){
+      txtAgenda.text = doc.data()['agenda'];
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
+    final String id = ModalRoute.of(context).settings.arguments;
+    if(id != null){
+      if(txtAgenda.text == ''){
+        getDocumentById(id);
+      }
+    }
+
     return Scaffold(
       key: scaffoldKey,
 
@@ -25,110 +56,56 @@ class _TelaAgendaState extends State<TelaAgenda> {
         title: Text('Minha Agenda'),
       ),
       
-      drawer: Drawer(
-        child: ListView(children: [
-            UserAccountsDrawerHeader(
-              currentAccountPicture:CircleAvatar(backgroundImage: AssetImage('assets/imagens/grazielacastro.png'),),
-              accountName: Text("Nome Completo"),
-              accountEmail:Text("email@email.com"),              
-            ),
-            ListTile(
-              leading: Icon(Icons.home),
-              title: Text("Inicio"),
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => MyApp()),);},
-            ),
-            ListTile(
-              leading: Icon(Icons.person),
-              title: Text("Minha Conta"),
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TelaConta()),);},
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Configurações"),
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TelaConfiguracoes()),);},
-            ),
-            ListTile(
-              leading: Icon(Icons.info),
-              title: Text("Sobre"),
-              onTap: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TelaSobre()),);},
-            ),
-          ],
-        ) ,
-      ),
-
       body: Container(
         padding: EdgeInsets.all(40),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                Expanded(
-                  child: TextField(
-                    controller: txtAgenda,
-                    decoration: InputDecoration(
-                      labelText: 'Adicionar Dia e Horário do Treino',
-                    ),
-                  ),
-                ),
-
-                SizedBox(width: 30),
-                IconButton(
-                  icon: Icon(Icons.add),
-                  onPressed: (){
-                    setState(() {
-                      horarios.add(txtAgenda.text);
-                      horarios.sort();
-                      txtAgenda.text = '';
-                      scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Text('Horário adicionado com sucesso.'),
-                          duration: Duration(seconds: 3),
-                        ),
-                      ); 
-                    });
-                  },
-                )
-              ],
-            ),
-            SizedBox(height: 30,),
-
             Expanded(
-              child: ListView.separated(
-                //reverse: true,
-                itemBuilder: (context,index){
-                  return Container(
-                    child: ListTile(
-                      leading: Icon(Icons.fitness_center),
-                      title: Text(horarios[index], style: TextStyle(fontSize: 24)),
-                      trailing: IconButton(
-                        icon: Icon(Icons.delete_outline),
-                        onPressed: (){
-                          setState(() {
-                            horarios.removeAt(index);
-
-                            scaffoldKey.currentState.showSnackBar(
-                              SnackBar(
-                                content: Text('Horário removido com sucesso.'),
-                                duration: Duration(seconds: 3),
-                              ),
-                            );
-                          });
-                        },
-                      ),
-                    ),
-                  );
-                },
-
-                separatorBuilder: (context, index){
-                  return Divider(thickness: 1, color: Colors.grey);
-                },
-
-                itemCount: horarios.length
-
+              child: TextField(
+                controller: txtAgenda,
+                decoration: InputDecoration(labelText: 'Adicionar Dia e Horário do Treino',),
               ),
             ),
-          ],
+            SizedBox(width: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RaisedButton(
+                  child: Text("Salvar",style: TextStyle(color: Colors.white, fontSize: 20)),
+                  color: Colors.deepPurple,
+                  onPressed: ()async{
+                    if(id == null){
+                      //Adicionar um Novo Documento na Agenda
+                      await db.collection("agenda").add(
+                        {
+                          "agenda": txtAgenda.text,
+                        }
+                      );
+                    }else{
+                      //Atualizar dados do Documento
+                      await db.collection("agenda").doc(id).update(
+                        {
+                          "agenda": txtAgenda.text,
+                        }
+                      );
+                    }
+                    Navigator.pop(context);
+                  },
+                ),
+
+                SizedBox(width: 20),
+                
+                RaisedButton(
+                  child: Text("Cancelar",style: TextStyle(color: Colors.white, fontSize: 20)),
+                  color: Colors.deepPurple,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            ),
+          ],        
         ),
       ),
     );

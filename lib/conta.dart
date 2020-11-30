@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:treinontime/login.dart';
+import 'package:treinontime/agenda.dart';
+import 'package:treinontime/entrar.dart';
 import 'package:treinontime/main.dart';
 import 'package:treinontime/sobre.dart';
 import 'package:treinontime/configuracoes.dart';
@@ -58,12 +59,8 @@ class TelaConta extends StatelessWidget {
               Center(child: CircleAvatar(backgroundImage: AssetImage('assets/imagens/grazielacastro.png',),radius: 100,)),
               TextFormField(decoration: InputDecoration(hintText: 'Nome Completo',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'CPF',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Telefone com DDD',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Endereço',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Cidade',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'Email',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'Alterar Senha',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Repetir Senha',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

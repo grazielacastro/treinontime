@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "266936671068",
+    "firebase_url": "https://treinontime.firebaseio.com",
+    "project_id": "treinontime",
+    "storage_bucket": "treinontime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266936671068:android:5545b2eadc368ffdc3ff99",
+        "android_client_info": {
+          "package_name": "com.example.treinontime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266936671068-r88vuccs8dup9jnpanqhm7l5ossqs3bm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2IY-g3g6U4YmDciq47qJ3WJmfO-J2Oms"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266936671068-r88vuccs8dup9jnpanqhm7l5ossqs3bm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

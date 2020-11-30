@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:treinontime/login.dart';
+import 'package:treinontime/entrar.dart';
 import 'package:treinontime/main.dart';
 
-class TelaContaAluno extends StatefulWidget {
+class TelaCadastrar extends StatefulWidget {
   @override
-  _TelaContaAlunoState createState() => _TelaContaAlunoState();
+  _TelaCadastrarState createState() => _TelaCadastrarState();
 }
 
-class _TelaContaAlunoState extends State<TelaContaAluno> {
+class _TelaCadastrarState extends State<TelaCadastrar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,12 +21,8 @@ class _TelaContaAlunoState extends State<TelaContaAluno> {
               Center(child: Icon(Icons.person_add,size: 120,color: Theme.of(context).primaryColor),),
               TextFormField(decoration: InputDecoration(hintText: 'Nome Completo',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'CPF',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Telefone com DDD',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Endereço',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Cidade',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'Email',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               TextFormField(decoration: InputDecoration(hintText: 'Senha',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
-              TextFormField(decoration: InputDecoration(hintText: 'Repetir Senha',hintStyle: TextStyle(fontSize: 16, fontStyle: FontStyle.italic, color: Theme.of(context).primaryColor),),),
               SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

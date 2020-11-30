@@ -1,24 +1,45 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:treinontime/agenda.dart';
 import 'package:treinontime/configuracoes.dart';
 import 'package:treinontime/imc.dart';
 import 'package:treinontime/inicio.dart';
-import 'package:treinontime/login.dart';
+import 'package:treinontime/entrar.dart';
 import 'package:treinontime/pesquisar.dart';
 import 'package:treinontime/sobre.dart';
 import 'package:treinontime/treinos.dart';
 import 'package:treinontime/conta.dart';
 
-void main(){
+void main() async {
+
+  //Registrar o Firebase
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(MaterialApp(
     debugShowCheckedModeBanner: false,
+    initialRoute: '/entrar',
+    routes: {
+      '/entrar': (context) => TelaEntrar(),
+      '/agenda': (context) => TelaAgenda(),
+    },
+    
     theme:ThemeData(
       primaryColor: Colors.deepPurple,
       backgroundColor: Colors.white,
       fontFamily: 'Roboto',
     ),
     title: 'TreinOnTime',
-    home: TelaEntrar(),
   ));
+
+/*//Teste do Firebase
+var db = FirebaseFirestore.instance;
+db.collection("agenda").add(
+  {
+    "agenda" : "sexta-feira 10h",
+  }
+);*/
+
 }
 
 class MyApp extends StatefulWidget {

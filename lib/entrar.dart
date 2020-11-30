@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:treinontime/contaaluno.dart';
-import 'package:treinontime/contatreinador.dart';
+import 'package:treinontime/cadastrar.dart';
 import 'package:treinontime/main.dart';
 
 class TelaEntrar extends StatelessWidget {
@@ -65,23 +64,11 @@ class TelaEntrar extends StatelessWidget {
                   Text('Ainda não tem Conta?',style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16, fontStyle: FontStyle.italic,)),
                   FlatButton(
                     child: Text('Cadastrar!',style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic,)),
-                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TelaContaAluno()),);},
-                  ),
-                ],
-              ),              
-              SizedBox(height: 100),
-              Row(
-                children: [
-                  Text('Sou Treinador(a)?',style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16, fontStyle: FontStyle.italic,)),
-                  FlatButton(
-                    child: Text('Marcar Treinos!',style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 16, fontWeight: FontWeight.bold, fontStyle: FontStyle.italic,)),
-                    onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => TelaContaTreinador01()),);
-                    },
+                    onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context) => TelaCadastrar()));},
                   ),
                 ],
               ),
-            ],
+           ],
           ),
         ),
       ),

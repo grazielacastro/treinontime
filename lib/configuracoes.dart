@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:treinontime/agenda.dart';
 import 'package:treinontime/conta.dart';
 import 'package:treinontime/main.dart';
 import 'package:treinontime/sobre.dart';
